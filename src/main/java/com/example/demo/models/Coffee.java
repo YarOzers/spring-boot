@@ -1,13 +1,17 @@
 package com.example.demo.models;
 
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
-
+@Entity
 public class Coffee {
-    private final String id;
+    public Coffee(){}
+    @Id
+    private String id;
     private String name;
 
     public Coffee(String id, String name){
@@ -30,5 +34,9 @@ public class Coffee {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
