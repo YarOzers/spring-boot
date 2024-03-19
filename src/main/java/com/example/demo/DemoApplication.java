@@ -15,7 +15,6 @@ public class DemoApplication {
 	}
 
 	@Bean
-	@ConfigurationProperties(prefix = "droid")
 	Droid createDroid(){
 		return new Droid();
 	}
