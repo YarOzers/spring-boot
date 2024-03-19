@@ -5,7 +5,7 @@ import com.example.demo.repositories.CoffeeRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
+
 import java.util.Optional;
 
 @RestController
@@ -15,14 +15,8 @@ public class RestApiDemoController {
 
     public RestApiDemoController(CoffeeRepository coffeeRepository) {
         this.coffeeRepository = coffeeRepository;
-
-        this.coffeeRepository.saveAll(List.of(
-                new Coffee("Cafe Creza"),
-                new Coffee("Cafe Ganador"),
-                new Coffee("Cafe Lareno"),
-                new Coffee("Cafe Tres Pontas")
-        ));
     }
+
 
     @GetMapping
     Iterable<Coffee> getCoffees() {
@@ -41,9 +35,9 @@ public class RestApiDemoController {
 
     @PutMapping("/{id}")
     ResponseEntity<Coffee> putCoffee(@PathVariable String id, @RequestBody Coffee coffee) {
-        return (!coffeeRepository.existsById(id)) ?
-                new ResponseEntity<>(postCoffee(coffee), HttpStatus.CREATED) :
-                new ResponseEntity<>(coffee, HttpStatus.OK);
+        return (coffeeRepository.existsById(id))
+                ? new ResponseEntity<>(coffee, HttpStatus.OK)
+                : new ResponseEntity<>(postCoffee(coffee), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
